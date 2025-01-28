@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fadi - الصفحة الشخصية</title>
+    <style>
+        @font-face {
+            font-family: 'CustomFont';
+            src: url('path/to/your/font.ttf') format('truetype'); /* استبدل 'path/to/your/font.ttf' بمسار خطك */
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e7fe6;
+            --discord: #7289da;
+            --kick: #44ff81;
+            --youtube: #ff0000;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #000;
+            font-family: 'CustomFont', system-ui, -apple-system, sans-serif;
+            color: white;
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
+
+        .cyber-container {
+            position: relative;
+            min-height: 100vh;
+            background: 
+                linear-gradient(45deg, transparent 48%, #0ff1 49%, #0ff1 51%, transparent 52%) center,
+                radial-gradient(circle at 50% 50%, transparent 40%, #000 100%);
+            background-size: 100% 100%, 100% 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.1; /* ضبط درجة وضوح الصورة */
+        }
+
+        .hex-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+            background: 
+                repeating-linear-gradient(60deg, #000 0, #000 1px, transparent 1px, transparent 4px) 0 0,
+                repeating-linear-gradient(-60deg, #000 0, #000 1px, transparent 1px, transparent 4px) 0 0,
+                linear-gradient(60deg, transparent 0, transparent 3px, #0ff 3px, #0ff 4px, transparent 4px) 0 0,
+                linear-gradient(-60deg, transparent 0, transparent 3px, #0ff 3px, #0ff 4px, transparent 4px) 0 0;
+            background-size: 20px 35px;
+            animation: moveHex 20s linear infinite;
+        }
+
+        @keyframes moveHex {
+            from { background-position: 0 0; }
+            to { background-position: 0 100%; }
+        }
+
+        .main-content {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            transform-style: preserve-3d;
+        }
+
+        .profile-section {
+            position: relative;
+            margin-bottom: 4rem;
+            transform-style: preserve-3d;
+        }
+
+        .cyber-frame {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+            transform-style: preserve-3d;
+            animation: floatProfile 6s ease-in-out infinite;
+        }
+
+        @keyframes floatProfile {
+            0%, 100% { transform: translateZ(0) rotateY(0); }
+            50% { transform: translateZ(30px) rotateY(10deg); }
+        }
+
+        .cyber-frame::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border: 2px solid var(--primary);
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            animation: framePulse 2s linear infinite;
+        }
+
+        @keyframes framePulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.5; }
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        }
+
+        .glitch-title {
+            font-size: 4rem;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            color: var(--primary);
+            text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff;
+            animation: glitchText 3s infinite;
+        }
+
+        @keyframes glitchText {
+            0%, 100% { transform: none; opacity: 1; }
+            7% { transform: skew(-0.5deg, -0.9deg); }
+            10% { transform: none; }
+            27% { transform: none; }
+            30% { transform: skew(0.8deg, -0.1deg); }
+            35% { transform: none; }
+            52% { transform: none; }
+            55% { transform: skew(-1deg, 0.2deg); }
+            50% { transform: none; }
+            72% { transform: none; }
+            75% { transform: skew(0.4deg, 1deg); }
+            80% { transform: none; }
+            100% { transform: none; }
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            perspective: 1000px;
+        }
+
+        .cyber-button {
+            position: relative;
+            padding: 2rem;
+            text-decoration: none;
+            color: white;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid;
+            transform-style: preserve-3d;
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+        }
+
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+        }
+
+        .cyber-button:hover::before {
+            transform: translateX(100%);
+            transition: transform 0.5s;
+        }
+
+        .cyber-button:hover {
+            transform: translateZ(20px);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .discord-button { border-color: var(--discord); }
+        .kick-button { border-color: var(--kick); }
+        .youtube-button { border-color: var(--youtube); }
+
+        .button-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .platform-icon {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 0 5px currentColor);
+        }
+
+        .button-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .corner-decoration {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid currentColor;
+        }
+
+        .top-left { top: 5px; left: 5px; border-right: 0; border-bottom: 0; }
+        .top-right { top: 5px; right: 5px; border-left: 0; border-bottom: 0; }
+        .bottom-left { bottom: 5px; left: 5px; border-right: 0; border-top: 0; }
+        .bottom-right { bottom: 5px; right: 5px; border-left: 0; border-top: 0; }
+
+        @media (max-width: 768px) {
+            .glitch-title {
+                font-size: 2.5rem;
+            }
+            
+            .cyber-frame {
+                width: 200px;
+                height: 200px;
+            }
+
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* تأثير الموجة */
+        @keyframes rippleAnim {
+            from {
+                width: 5px;
+                height: 5px;
+                opacity: 1;
+            }
+            to {
+                width: 200px;
+                height: 200px;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-container">
+        <img src="https://r2.fivemanage.com/nQuZt6FcYHEYTbrQTUGb3/images/Banner.png" alt="Background" class="background-image">
+        <div class="hex-background"></div>
+        
+        <div class="main-content">
+            <div class="profile-section">
+                <div class="cyber-frame">
+                    <img src="https://r2.fivemanage.com/nQuZt6FcYHEYTbrQTUGb3/images/F-LogGif.gif" alt="Fadi Profile" class="profile-image">
+                </div>
+                <h1 class="glitch-title">FADI</h1> 
+            </div>
+
+            <div class="social-grid">
+                <a href="https://discord.gg/MX9nHhQaP6" class="cyber-button discord-button" target="_blank">
+                    <div class="corner-decoration top-left"></div>
+                    <div class="corner-decoration top-right"></div>
+                    <div class="corner-decoration bottom-left"></div>
+                    <div class="corner-decoration bottom-right"></div>
+                    <div class="button-content">
+                        <svg class="platform-icon" viewBox="0 0 24 24" fill="var(--discord)">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+                        </svg>
+                        <span class="button-text">Discord سيرفر</span>
+                    </div>
+                </a>
+
+                <a href="https://kick.com/fadi-999" class="cyber-button kick-button" target="_blank">
+                    <div class="corner-decoration top-left"></div>
+                    <div class="corner-decoration top-right"></div>
+                    <div class="corner-decoration bottom-left"></div>
+                    <div class="corner-decoration bottom-right"></div>
+                    <div class="button-content">
+                        <svg class="platform-icon" viewBox="0 0 24 24" fill="var(--kick)">
+                            <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2zm-2 14.5v-9l6 4.5l-6 4.5z"/>
+                        </svg>
+                        <span class="button-text">Kick بث مباشر</span>
+                    </div>
+                </a>
+
+                <a href="https://www.youtube.com/@Fadi_996" class="cyber-button youtube-button" target="_blank">
+                    <div class="corner-decoration top-left"></div>
+                    <div class="corner-decoration top-right"></div>
+                    <div class="corner-decoration bottom-left"></div>
+                    <div class="corner-decoration bottom-right"></div>
+                    <div class="button-content">
+                        <svg class="platform-icon" viewBox="0 0 24 24" fill="var(--youtube)">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                        <span class="button-text">YouTube قناة</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // إضافة تأثير حركة ثلاثية الأبعاد
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            
+            const moveX = (clientX - centerX) / centerX;
+            const moveY = (clientY - centerY) / centerY;
+            
+            const content = document.querySelector('.main-content');
+            content.style.transform = 
+                `rotateY(${moveX * 5}deg)
+                rotateX(${-moveY * 5}deg)
+                translateZ(50px)`
+            ;
+            
+            // تحريك خلفية الأشكال السداسية بشكل تفاعلي
+            const hexBackground = document.querySelector('.hex-background');
+            hexBackground.style.transform = 
+                `translate(${moveX * 20}px, ${moveY * 20}px)`
+            ;
+        });
+
+        // إضافة تأثير الوميض العشوائي للحدود
+        function createGlitchEffect() {
+            const buttons = document.querySelectorAll('.cyber-button');
+            setInterval(() => {
+                const randomButton = buttons[Math.floor(Math.random() * buttons.length)];
+                randomButton.style.borderColor = 'var(--primary)';
+                setTimeout(() => {
+                    randomButton.style.borderColor = '';
+                }, 200);
+            }, 3000);
+        }
+
+        // إضافة تأثير الموجة عند النقر على الأزرار
+        function createRippleEffect() {
+            const buttons = document.querySelectorAll('.cyber-button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('div');
+                    ripple.classList.add('ripple');
+                    
+                    ripple.style.cssText = 
+                        `position: absolute;
+                        width: 5px;
+                        height: 5px;
+                        background: var(--primary);
+                        border-radius: 50%;
+                        pointer-events: none;
+                        transform: translate(-50%, -50%);
+                        animation: rippleAnim 1s linear;`
+                    ;
+                    
+                    ripple.style.left = e.clientX - button.getBoundingClientRect().left + 'px';
+                    ripple.style.top = e.clientY - button.getBoundingClientRect().top + 'px';
+                    
+                    button.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 1000);
+                });
+            });
+        }
+
+        // إضافة تأثير تتبع المؤشر للأزرار
+        function createButtonHoverEffect() {
+            const buttons = document.querySelectorAll('.cyber-button');
+            buttons.forEach(button => {
+                button.addEventListener('mousemove', (e) => {
+                    const rect = button.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    button.style.transform = 
+                        `translateZ(20px)
+                        rotateX(${(y - rect.height / 2) / 10}deg)
+                        rotateY(${(x - rect.width / 2) / 10}deg)`
+                    ;
+                });
+                
+                button.addEventListener('mouseleave', () => {
+                    button.style.transform = 'translateZ(0)';
+                });
+            });
+        }
+
+        // إضافة تأثير الوميض للعنوان
+        function createTitleGlitchEffect() {
+            const title = document.querySelector('.glitch-title');
+            setInterval(() => {
+                const glitchText = title.textContent;
+                const colors = ['#ff0000', '#00ff00', '#0000ff'];
+                
+                title.style.textShadow = 
+                    `${Math.random() * 4 - 2}px ${Math.random() * 4 - 2}px ${colors[0]},
+                    ${Math.random() * 4 - 2}px ${Math.random() * 4 - 2}px ${colors[1]},
+                    ${Math.random() * 4 - 2}px ${Math.random() * 4 - 2}px ${colors[2]}`
+                ;
+                
+                setTimeout(() => {
+                    title.style.textShadow = '2px 2px #ff00ff, -2px -2px #00ffff';
+                }, 100);
+            }, 5000);
+        }
+
+        // إضافة تأثير حركة الإطار للصورة الشخصية
+        function createProfileFrameEffect() {
+            const frame = document.querySelector('.cyber-frame');
+            frame.addEventListener('mousemove', (e) => {
+                const rect = frame.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                frame.style.transform = 
+                    `translateZ(30px)
+                    rotateX(${(y - rect.height / 2) / 20}deg)
+                    rotateY(${(x - rect.width / 2) / 20}deg)`
+                ;
+            });
+            
+            frame.addEventListener('mouseleave', () => {
+                frame.style.transform = '';
+            });
+        }
+
+        // تشغيل جميع التأثيرات
+        window.addEventListener('load', () => {
+            createGlitchEffect();
+            createRippleEffect();
+            createButtonHoverEffect();
+            createTitleGlitchEffect();
+            createProfileFrameEffect();
+        });
+    </script>
+</body>
+</html>
